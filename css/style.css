@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap');
+
+body {
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: #000000;
+}
+
+p, input, .btn, .separator, a, h2, footer {
+    font-family: Montserrat, sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.maxWith, body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.note {
+    font-size: 14px;
+    opacity: 0.35;
+}
+
+hr {
+    color: #e8e8e8;
+}
+
+h6 {
+    opacity: 0.35;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-family: Prompt, sans-serif;
+}
+
+.blur-background {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px) brightness(1.5);
+    -webkit-backdrop-filter: blur(10px) brightness(1.5);
+    border: 2px solid rgba(140, 140, 140, 0.25);
+}
+
+footer {
+    color: white;
+    font-size: 12px;
+    padding: 15px;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+}
+
+.footer-link, .footer-link:visited, .footer-link:link {
+    font-family: "Cutive Mono", monospace;
+    font-size: 12px;
+    margin: 0 0 0.5em;
+    line-height: 1.5;
+    opacity: 0.85;
+    transition: opacity .2s ease-in-out, text-shadow .2s ease-in-out;
+    color: inherit;
+    text-decoration: none;
+    padding: 15px;
+}
+
+.footer-link:hover {
+    opacity: 1;
+    text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
+    animation: none;
+    color: white;
+}
+
+hr {
+    margin: 5px 0 15px;
+    color: rgb(162, 162, 162);
+}
+
+h3 {
+    font-size: 23px;
+    padding-top: 50px;
+    text-align: center;
+    color: rgb(24, 24, 24);
+    font-family: Montserrat, sans-serif;
+    padding-bottom: 50px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 26px;
+}
+
+h1 {
+    font-family: Quicksand, sans-serif;
+    font-size: 60px;
+    color: var(--bs-gray-100);
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(50px) brightness(1.5);
+    -webkit-backdrop-filter: blur(50px) brightness(1.5);
+    border: 2px solid rgba(140, 140, 140, 0.05);
+}
+
+.form-button {
+    padding-top: 20px
+}
+
+.form-card {
+    padding: 40px 40px 40px;
+    border-radius: 20px;
+}
+
+.signin-button > div > div > svg {
+    height: 38px;
+}
+
+.text-on-dark {
+    color: var(--bs-gray-300);
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    color: #5b5b5b;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #dedede;
+}
+
+.separator:not(:empty)::before {
+    margin-right: .8em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .8em;
+}
+
+.frac {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+}
+.frac > span {
+    display: block;
+    padding: 0.1em;
+}
+.frac span.bottom {
+    border-top: thin solid black;
+}
+.frac span.symbol {
+    display: none;
+}
+
+.btn {
+    background-color: black;
+    border-color: black;
+}
+
+.btn:hover {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.btn:active {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.btn:focus {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="content">
+    <p>Carico...</p>
+</div>
+</body>
+
+<script>
+    $(document).on('click', '#loginButton', function () {
+        window.location.href = "http://localhost:3033/login?service=3";
+    });
+
+    $(document).ready(async function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAuth = urlParams.get('auth');
+
+            if (isAuth) {
+                await $.ajax({
+                    url: "http://localhost:3033/token",
+                    type: "GET",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (data) {
+                        if (data.status === 1) {
+                            localStorage.setItem("token", data.token);
+                        }
+                    }
+                });
+            }
+
+            if (localStorage.getItem("token")) {
+                $.ajax({
+                    url: "http://localhost:3033/me",
+                    type: "GET",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    headers: {"Authorization": localStorage.getItem('token')},
+                    success: function (data) {
+                        if (data.status === 1) {
+                            $("#content").html("Logged in. Name: " + data.user.first_name + " " + data.user.last_name);
+                        } else {
+                            $("#content").html("<p>Not logged in.</p><button id='loginButton'>Login</button>");
+                            localStorage.removeItem("token");
+                        }
+                    },
+                    error: function () {
+                        $("#content").html("<p>Not logged in.</p><button id='loginButton'>Login</button>");
+                        localStorage.removeItem("token");
+                    }
+                });
+            } else {
+                $("#content").html("<p>Not logged in.</p><button id='loginButton'>Login</button>");
+            }
+        }
+    )
+    ;
+</script>
+</html>

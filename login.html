@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Accedi con il tuo Garamante ID.">
+    <!-- For Apple Sign In
+    <meta name="appleid-signin-client-id" content="[CLIENT_ID]">
+    <meta name="appleid-signin-scope" content="[SCOPES]">
+    <meta name="appleid-signin-redirect-uri" content="[REDIRECT_URI]">
+    <meta name="appleid-signin-state" content="[STATE]">
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/it_IT/appleid.auth.js"></script>
+    -->
+    <link rel="icon" type="image/x-icon" href="assets/logo/favicon.ico">
+    <title>Accedi</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&amp;display=swap">
+</head>
+
+<div class="modal fade" id="accountNotFound" tabindex="-1" role="dialog" aria-labelledby="accountNotFoundLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accountNotFoundLabel">Account non trovato</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Non è stato trovato alcun account associato a questo indirizzo email.</p>
+                <p>Se non hai ancora un Garamante ID, puoi crearne uno <a href="signup.html">qui</a>.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="wrongPassword" tabindex="-1" role="dialog" aria-labelledby="wrongPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wrongPasswordLabel">Password errata</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>La password inserita non è corretta.</p>
+                <p>Se hai dimenticato la password del tuo Garamante ID, puoi reimpostarla <a href="reset-password.html">qui</a>.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="unknownError" tabindex="-1" role="dialog" aria-labelledby="unknownErrorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="unknownErrorLabel">Errore sconosciuto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Siamo spiacenti, si è verificato un errore durante la fase di autenticazione. Per favore, riprova più tardi.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body>
+<section class="position-relative py-4 py-xl-5">
+    <div class="container">
+        <div class="row mb-5 d-flex justify-content-center align-items-center m-2 m-2 p-md-4 m-md-4 m-lg-5">
+            <div class="card form-card mb-5 p-2 p-lg-4 blur-background" style="max-width: 500px">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <img src="img/logo-white.webp" alt="garamante ID" height="75" width="auto">
+                    <form class="text-center w-100" method=POST action="http://localhost:3033/auth">
+                        <div class="mt-3 mb-0">
+                            <label for="emailField"></label>
+                            <input id="emailField" class="form-control" type="email" name="email" placeholder="Email" autocomplete="email">
+                        </div>
+                        <div class="mb-5">
+                            <label for="passwordField"></label>
+                            <input id="passwordField" class="form-control" type="password" name="password" placeholder="Password" autocomplete="current-password">
+                        </div>
+                        <input type="hidden" name="service_url" value="{{service_url}}">
+                        <p class="text-center opacity-50">Autenticazione richiesta da {{service_name}}</p>
+                        <button class="btn btn-primary d-block w-100 mb-1 text-center" type="submit">Accedi</button>
+                        <!-- Register
+                        <div class="separator"> Oppure</div>
+                        <button class="btn btn-primary d-block w-100 mb-2 mt-1 text-center" type='button' id="signUp">
+                          Registrati
+                        </button>
+                            -->
+                        <!-- For Apple Sign In
+                        <div id="appleid-signin" class="signin-button w-100 mb-1" data-type="continue"
+                             data-color="black" data-border="false"></div>
+                            -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+<script>
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+
+        if (status == -1 || status == -2) {
+            $("#emailField").addClass("is-invalid");
+            $("#passwordField").addClass("is-invalid");
+        }
+
+        if (status == -1) {
+            $("#wrongPassword").modal("show");
+        }
+        else if (status == -2) {
+            $("#accountNotFound").modal("show");
+        }
+        else if (status == -3) {
+            $("#unknownError").modal("show");
+        }
+    });
+</script>
+
+</html>
